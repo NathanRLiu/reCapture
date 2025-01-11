@@ -23,7 +23,7 @@ import { CaptureButton } from './views/CaptureButton'
 import { PressableOpacity } from 'react-native-pressable-opacity'
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import IonIcon from 'react-native-vector-icons/Ionicons'
-//import type { Routes } from './Routes'
+import type { Routes } from './navigation/Routes'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useIsFocused } from '@react-navigation/core'
 import { usePreferredCameraDevice } from './hooks/usePreferredCameraDevice'
@@ -36,7 +36,6 @@ Reanimated.addWhitelistedNativeProps({
 })
 
 const SCALE_FULL_ZOOM = 3
-
 type Props = NativeStackScreenProps<Routes, 'CameraPage'>
 export function CameraPage({ navigation }: Props): React.ReactElement {
   const camera = useRef<Camera>(null)

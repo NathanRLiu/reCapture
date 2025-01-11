@@ -70,6 +70,14 @@ export default function HomeScreen() {
           Tap the Explore tab to learn more about what's included in this starter app.
         </ThemedText>
       </ThemedView>
+      <MapView
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+      }}
+      />
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
         <ThemedText>
@@ -80,6 +88,7 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
+      
     </ParallaxScrollView>
   );
 }
@@ -112,3 +121,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+
