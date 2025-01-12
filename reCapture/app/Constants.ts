@@ -1,6 +1,7 @@
 import { Dimensions, Platform } from 'react-native'
 import StaticSafeAreaInsets from 'react-native-static-safe-area-insets'
 
+
 export const CONTENT_SPACING = 15
 
 const SAFE_BOTTOM =

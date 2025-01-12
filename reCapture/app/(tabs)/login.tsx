@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import {
   StyleSheet,
   Text,
@@ -62,7 +63,7 @@ const App = () => {
       </TouchableOpacity>
       {/* Sign Up Button */}
       <TouchableOpacity onPress={onPressSignUp}>
-        <Text style={styles.forgotAndSignUpText}>Signup</Text>
+        <Text style={styles.forgotAndSignUpText}><SIGNUP></SIGNUP></Text>
       </TouchableOpacity>
     </View>
   );

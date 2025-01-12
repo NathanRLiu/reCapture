@@ -34,6 +34,11 @@ const ReanimatedCamera = Reanimated.createAnimatedComponent(Camera)
 Reanimated.addWhitelistedNativeProps({
   zoom: true,
 })
+type MarkerType = {
+  id: string;
+  latitude: number;
+  longitude: number;
+};
 
 const SCALE_FULL_ZOOM = 3
 type Props = NativeStackScreenProps<Routes, 'CameraPage'>
@@ -191,6 +196,15 @@ export function CameraPage({ navigation }: Props): React.ReactElement {
   const videoHdr = format?.supportsVideoHdr && enableHdr
   const photoHdr = format?.supportsPhotoHdr && enableHdr && !videoHdr
 
+  const [markers, setMarkers] = useState([]);
+
+  const handleAddMarker = (latitude, longitude) => {
+    setMarkers((prevMarkers) => [
+      ...prevMarkers,
+      { id: `marker-${Date.now()}`, latitude, longitude },
+    ]);
+  };
+  
   return (
     <View style={styles.container}>
       {device != null ? (
