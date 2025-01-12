@@ -9,19 +9,23 @@ const dbConfig = {
 	database: process.env.SINGLESTORE_DB || 'reCapture',
   };
 
-router.get('/', (req, res) => {
+router.get('/', await (req, res) => {
     const { queryType, username } = req.body;
+
+    let sql,params;
+    sql = 'SELECT * FROM posts WHERE username = ? ORDER BY created_at DESC';
+    
+
 
     const [result] = await connection.execute(sql, params);
     await connection.end();
+
+
+
+
+
+
+
+
     
-
-
-
-
-
-
-
     
-    
-});
