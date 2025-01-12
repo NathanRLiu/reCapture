@@ -1,21 +1,23 @@
 import { CameraView, CameraType, FlashMode, useCameraPermissions } from 'expo-camera';
 import React, { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View ,Alert} from 'react-native';
 import { PressableOpacity } from 'react-native-pressable-opacity'
 import IonIcon from 'react-native-vector-icons/Ionicons'
-
+import { useRouter } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CameraPage() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [flashMode, setFlashMode] = useState<FlashMode>('off');
   const [permission, requestPermission] = useCameraPermissions();
   const cameraView = React.useRef<CameraView>(null);
- 
+  const router = useRouter();
   const takePic = async ()=>{
     try {
         if (cameraView.current != null) {
-            const photo = await cameraView.current.takePictureAsync();
-            console.log(photo);
+            const photo = await cameraView.current.takePictureAsync({base64:true, quality:0.3});
+            await AsyncStorage.setItem("image", JSON.stringify(photo));
+            router.push("/after_picture");
         }
     } catch (e) {
         console.log(e);
@@ -44,21 +46,21 @@ export default function CameraPage() {
       <CameraView style={styles.camera} facing={facing} flash={flashMode} ref={cameraView}>
         <View style={styles.buttonContainer}>
             <View style={styles.rightButtonRow}>
-                <PressableOpacity style={styles.button} onPress={toggleCameraFacing} disabledOpacity={0.4}>
-                    <IonIcon name="camera-reverse" color="white" size={24} />
+                <PressableOpacity style={styles.button} onPress={toggleCameraFacing} disabledOpacity={0.8}>
+                    <IonIcon name="camera-reverse" color="white" size={50} />
                 </PressableOpacity>
                 {'supportsFlash' && (
                 <PressableOpacity style={styles.button} onPress={()=>{
                     toggleFlashMode();
-                }} disabledOpacity={0.4}>
+                }} disabledOpacity={0.5}>
                 <IonIcon name={flashMode ==='on' ? 'flash' : 'flash-off'} 
-                    color="white" size={24} />
+                    color="white" size={50} />
                 </PressableOpacity>
                 
 
                 )}
-                <PressableOpacity style={styles.button} onPress={takePic} disabledOpacity={0.4}>
-                    <IonIcon name="camera" color="white" size={24} />
+                <PressableOpacity style={styles.button} onPress={takePic} disabledOpacity={0.5}>
+                    <IonIcon name="camera" color="white" size={50} />
                 </PressableOpacity>
             </View>
         </View>
@@ -97,8 +99,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginBottom: "2%",
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
     borderRadius: 30 / 2,
     backgroundColor: 'rgba(140, 140, 140, 0.3)',
     justifyContent: 'center',

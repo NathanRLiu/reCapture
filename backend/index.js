@@ -20,9 +20,9 @@ const corsOptions = {
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200,
 }
-
 app.use(cors(corsOptions)) 
 app.use(express.json());
+app.use('/static', __dirname + express.static('/img'))
 app.use('/api/upload', uploadRoute);
 app.use('/api/query', queryRoute);
 

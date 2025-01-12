@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   StyleSheet,
@@ -20,6 +21,7 @@ const App = () => {
   // Handlers for button presses
   const onPressLogin = () => {
     console.log("Login pressed");
+    AsyncStorage.setItem("email", state.email);
     router.push("/(tabs)/map");
     // Handle login logic here
   };
@@ -36,7 +38,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login Screen</Text>
+      <Text style={styles.title}>reCapture</Text>
       {/* Email Input */}
       <View style={styles.inputView}>
         <TextInput
