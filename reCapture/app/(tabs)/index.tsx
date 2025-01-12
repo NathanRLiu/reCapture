@@ -9,7 +9,7 @@ export default function HomeScreen() {
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   // const [polygonCoords, setPolygonCoords] = useState<Array<Array<{latitude: number, longitude: number}>>>([]);
-  const [trialtriangle, setTrial] = useState<Array<{latitude: Number, longitude: number}>>([]);
+  const [trialtriangle, setTrial] = useState<Array<{latitude: number, longitude: number}>>([]);
   let polygonCoords: Array<Array<{latitude: number, longitude: number}>> = [];
   const router = useRouter();
   const mapRef = useRef<MapView>(null);
@@ -45,9 +45,9 @@ export default function HomeScreen() {
 
   const invis = () => {
     setTrial(trialtriangle.length > 0 ? [] : [
-      {latitude: location?.coords.latitude! - 0.075, longitude: location?.coords.longitude!},
-      {latitude: location?.coords.latitude! + 0.075, longitude: location?.coords.longitude!},
-      {latitude: location?.coords.latitude!, longitude: location?.coords.longitude! + 0.1}
+      {latitude: location?.coords.latitude! - 0.0075, longitude: location?.coords.longitude!},
+      {latitude: location?.coords.latitude! + 0.0075, longitude: location?.coords.longitude!},
+      {latitude: location?.coords.latitude!, longitude: location?.coords.longitude! + 0.001}
     ]);
   }
 
@@ -158,7 +158,7 @@ export default function HomeScreen() {
           ))}
           <Polygon
               // key={`polygon-${index}`}
-              strokeColor="red"
+              strokeColor="blue"
               fillColor="rgba(255, 0, 0, 0.2)"
               coordinates={trialtriangle}
           /> 
@@ -186,7 +186,7 @@ export default function HomeScreen() {
 
       <TouchableOpacity
         style={styles.addButton1}
-        // onPress={() => router.push("/(tabs)/createpost")}
+        onPress={invis}
       >
         <Ionicons name="add-circle" size={60} color="red" />
       </TouchableOpacity>
