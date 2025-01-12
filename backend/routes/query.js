@@ -10,10 +10,10 @@ const dbConfig = {
   };
 
 router.get('/', await (req, res) => {
-    const { queryType, username } = req.body;
+    const {queryType, username } = req.body;
 
-    let sql,params;
-    sql = 'SELECT * FROM posts WHERE username = ? ORDER BY created_at DESC';
+    let params;
+    const sql = 'SELECT * FROM posts WHERE username = ? ORDER BY created_at DESC';
     
 
 
