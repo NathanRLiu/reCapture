@@ -47,9 +47,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
         }}
       />
-      
       <Tabs.Screen
-        name="profile"
+        name="createpost"
         options={{
           title: '+',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="map.fill" color={color} />,
