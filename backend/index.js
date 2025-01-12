@@ -23,7 +23,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions)) 
 app.use(express.json());
-//app.use(session({secret: 'secret', saveUninitialized: true, resave: true, cookie: { secure: true }}));
 app.use('/api/upload', uploadRoute);
 app.use('/api/query', queryRoute);
 
@@ -35,7 +34,6 @@ app.get('*', function(req, res) {
 server.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
-
 
 
 

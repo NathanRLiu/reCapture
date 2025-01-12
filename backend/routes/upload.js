@@ -30,3 +30,4 @@ router.post('/', async (req,res) => {
 	await connection.end()
 	
 });
+module.exports = router;

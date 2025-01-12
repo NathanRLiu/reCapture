@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useRouter } from "expo-router";
 
 import {
   StyleSheet,
@@ -6,28 +7,30 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-} from 'react-native';
+} from "react-native";
 
 const App = () => {
+  const router = useRouter();
   // State for email and password
   const [state, setState] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   // Handlers for button presses
   const onPressLogin = () => {
-    console.log('Login pressed');
+    console.log("Login pressed");
+    router.push("/(tabs)/map");
     // Handle login logic here
   };
 
   const onPressForgotPassword = () => {
-    console.log('Forgot Password pressed');
+    console.log("Forgot Password pressed");
     // Handle forgot password logic here
   };
 
   const onPressSignUp = () => {
-    console.log('Sign Up pressed');
+    console.log("Sign Up pressed");
     // Handle signup logic here
   };
 
@@ -63,7 +66,7 @@ const App = () => {
       </TouchableOpacity>
       {/* Sign Up Button */}
       <TouchableOpacity onPress={onPressSignUp}>
-      <Text style={styles.forgotAndSignUpText}>Sign Up</Text>
+        <Text style={styles.forgotAndSignUpText}>Sign Up</Text>
       </TouchableOpacity>
     </View>
   );
@@ -72,45 +75,45 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#4FD3DA',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#4FD3DA",
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 50,
-    color: '#fb5b5a',
+    color: "#fb5b5a",
     marginBottom: 40,
   },
   inputView: {
-    width: '80%',
-    backgroundColor: '#3AB4BA',
+    width: "80%",
+    backgroundColor: "#3AB4BA",
     borderRadius: 25,
     height: 50,
     marginBottom: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 20,
   },
   inputText: {
     height: 50,
-    color: 'white',
+    color: "white",
   },
   forgotAndSignUpText: {
-    color: 'white',
+    color: "white",
     fontSize: 11,
   },
   loginBtn: {
-    width: '80%',
-    backgroundColor: '#fb5b5a',
+    width: "80%",
+    backgroundColor: "#fb5b5a",
     borderRadius: 25,
     height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 40,
     marginBottom: 10,
   },
   loginText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
   },
 });

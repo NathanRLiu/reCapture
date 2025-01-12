@@ -6,11 +6,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
-  const [location, setLocation] = useState<Location.LocationObject | null>(null);
+  const [location, setLocation] = useState<Location.LocationObject | null>(
+    null
+  );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   // const [polygonCoords, setPolygonCoords] = useState<Array<Array<{latitude: number, longitude: number}>>>([]);
-  const [trialtriangle, setTrial] = useState<Array<{latitude: number, longitude: number}>>([]);
-  let polygonCoords: Array<Array<{latitude: number, longitude: number}>> = [];
+  const [trialtriangle, setTrial] = useState<
+    Array<{ latitude: number; longitude: number }>
+  >([]);
+  let polygonCoords: Array<Array<{ latitude: number; longitude: number }>> = [];
   const router = useRouter();
   const mapRef = useRef<MapView>(null);
 
@@ -44,12 +48,25 @@ export default function HomeScreen() {
   };
 
   const invis = () => {
-    setTrial(trialtriangle.length > 0 ? [] : [
-      {latitude: location?.coords.latitude! - 0.0075, longitude: location?.coords.longitude!},
-      {latitude: location?.coords.latitude! + 0.0075, longitude: location?.coords.longitude!},
-      {latitude: location?.coords.latitude!, longitude: location?.coords.longitude! + 0.001}
-    ]);
-  }
+    setTrial(
+      trialtriangle.length > 0
+        ? []
+        : [
+            {
+              latitude: location?.coords.latitude! - 0.00075,
+              longitude: location?.coords.longitude!,
+            },
+            {
+              latitude: location?.coords.latitude! + 0.00075,
+              longitude: location?.coords.longitude!,
+            },
+            {
+              latitude: location?.coords.latitude!,
+              longitude: location?.coords.longitude! + 0.001,
+            },
+          ]
+    );
+  };
 
   const updatePolygons = () => {
     if (!location) return;
@@ -67,25 +84,27 @@ export default function HomeScreen() {
     const lat2 = createArray(j_left - 0.0025, j_right, 0.01);
     // setPolygonCoords([]);
 
-    const newPolygonCoords: Array<Array<{latitude: number, longitude: number}>> = [];
+    const newPolygonCoords: Array<
+      Array<{ latitude: number; longitude: number }>
+    > = [];
 
     for (let i = 0; i < long.length - 1; i++) {
       const lat_t = i % 2 === 0 ? lat1 : lat2;
       const lat_b = i % 2 === 1 ? lat1 : lat2;
-      
+
       for (let j = 0; j < Math.min(lat_t.length - 1, lat_b.length - 1); j++) {
         // First triangle
         polygonCoords.push([
           { latitude: lat_t[j], longitude: long[i] },
           { latitude: lat_t[j + 1], longitude: long[i] },
-          { latitude: lat_b[j], longitude: long[i + 1] }
+          { latitude: lat_b[j], longitude: long[i + 1] },
         ]);
-        
+
         // Second triangle
         polygonCoords.push([
           { latitude: lat_t[j + 1], longitude: long[i] },
           { latitude: lat_b[j], longitude: long[i + 1] },
-          { latitude: lat_b[j + 1], longitude: long[i + 1] }
+          { latitude: lat_b[j + 1], longitude: long[i + 1] },
         ]);
       }
     }
@@ -95,33 +114,40 @@ export default function HomeScreen() {
     // setPolygonCoords(newPolygonCoords);
   };
 
-  const region = location ? {
-    latitude: location.coords.latitude,
-    longitude: location.coords.longitude,
-    latitudeDelta: 0.05,
-    longitudeDelta: 0.05,
-  } : null;
+  const region = location
+    ? {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      }
+    : null;
 
   const locations = [];
-  let l = location ? location.coords.latitude - 5*0.001 : 0;
-  let r = location ? location.coords.longitude - 5*0.001 : 0;
+  let l = location ? location.coords.latitude - 5 * 0.001 : 0;
+  let r = location ? location.coords.longitude - 5 * 0.001 : 0;
   let i = 0;
-  while (i < 10){
+  while (i < 10) {
     let j = 0;
     let l_r = l;
-    while (j < 10){
-
-      locations.push([
-        { latitude: l_r, longitude: r},
-        { latitude: l_r+0.001, longitude: r},
-        { latitude: l_r+0.001, longitude: r+0.001},
-        { latitude: l_r, longitude: r+0.001}
-      ]);
+    while (j < 10) {
+      locations.push(
+        [
+          { latitude: l_r, longitude: r },
+          { latitude: l_r + 0.001, longitude: r },
+          { latitude: l_r, longitude: r + 0.001 },
+        ],
+        [
+          { latitude: l_r + 0.001, longitude: r + 0.001 },
+          { latitude: l_r + 0.001, longitude: r },
+          { latitude: l_r, longitude: r + 0.001 },
+        ]
+      );
 
       l_r += 0.001;
       j++;
     }
-    r+=0.001
+    r += 0.001;
     i++;
   }
   // console.log(locations);
@@ -157,12 +183,12 @@ export default function HomeScreen() {
             />
           ))}
           <Polygon
-              // key={`polygon-${index}`}
-              strokeColor="blue"
-              fillColor="rgba(255, 0, 0, 0.2)"
-              coordinates={trialtriangle}
-          /> 
-          
+            // key={`polygon-${index}`}
+            strokeColor="blue"
+            fillColor="rgba(255, 0, 0, 0.2)"
+            coordinates={trialtriangle}
+          />
+
           {locations[0].map((loc, index) => (
             <Marker
               key={`marker-${index}`}
@@ -184,10 +210,7 @@ export default function HomeScreen() {
         <Ionicons name="add-circle" size={60} color="blue" />
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.addButton1}
-        onPress={invis}
-      >
+      <TouchableOpacity style={styles.addButton1} onPress={invis}>
         <Ionicons name="add-circle" size={60} color="red" />
       </TouchableOpacity>
     </View>

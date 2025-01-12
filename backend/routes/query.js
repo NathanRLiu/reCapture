@@ -9,23 +9,17 @@ const dbConfig = {
 	database: process.env.SINGLESTORE_DB || 'reCapture',
   };
 
-router.get('/', await (req, res) => {
+router.get('/', async (req, res) => {
     const {queryType, username } = req.body;
 
-    let params;
-    const sql = 'SELECT * FROM posts WHERE username = ? ORDER BY created_at DESC';
-    
+    const connection = await mysql.createConnection(dbConfig);
+    const [result] = await connection.execute(
+        'SELECT * FROM posts WHERE username = ? ORDER BY created_at DESC',
+    [username]
+  );
+   await connection.end();
 
+ res.json(result);
+});
 
-    const [result] = await connection.execute(sql, params);
-    await connection.end();
-
-
-
-
-
-
-
-
-    
-    
+module.exports = router;
